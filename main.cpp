@@ -3,6 +3,8 @@
 #include <cmath>
 #include <vector>
 
+#include "histogram.h"
+
 using namespace std;
 
 const size_t SCREEN_WIDTH = 80;
@@ -19,23 +21,10 @@ vector<double> input_numbers( size_t& ncount )
     return result;
 }
 
-void find_min_max( const vector<double>& numbers, double* mn, double* mx )
-{
-    *mn = numbers[0];
-    *mx = numbers[0];
-    for( double maxmin : numbers )
-    {
-        if( maxmin < *mn )
-            *mn = maxmin;
-        if( maxmin >= *mx )
-            *mx = maxmin;
-    }
-}
-
 vector<size_t> make_histogram( const vector<double>& numbers, size_t& bin_count, size_t* bin_max )
 {
     double mn, mx;
-    find_min_max( numbers, &mn, &mx );
+    find_minmax( numbers, &mn, &mx );
 
     vector <size_t> bins( bin_count, 0 );
 
@@ -144,14 +133,19 @@ int main()
     cin >> number_count;
     const auto numbers = input_numbers( number_count );
 
-    size_t bin_count;
-    cerr << "Enter bin count: ";
-    cin >> bin_count;
+    if( numbers.size() == 0 )
+        cerr << "Massiv ne soderzhit elementov";
+    else
+    {
+        size_t bin_count;
+        cerr << "Enter bin count: ";
+        cin >> bin_count;
 
-    size_t bin_max;
-    const auto bins = make_histogram( numbers, bin_count, &bin_max );
+        size_t bin_max;
+        const auto bins = make_histogram( numbers, bin_count, &bin_max );
 
-    show_histogram_svg( bins );
+        show_histogram_svg( bins );
+    }
 
     getch();
     return 0;
