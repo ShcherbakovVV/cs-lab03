@@ -116,6 +116,8 @@ void show_histogram_svg( const vector<size_t>& bins )
     const auto TEXT_BASELINE = 20;
     const auto TEXT_WIDTH = 50;
     const auto BIN_HEIGHT = 30;
+    const string stroke = "maroon";
+    const string color = "#E47811";
 
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
 
@@ -124,7 +126,11 @@ void show_histogram_svg( const vector<size_t>& bins )
     {
         const double bin_width = 10 * bin;
         svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
-        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "maroon", "#E47811");
+
+        if( bin_width > (IMAGE_WIDTH - TEXT_WIDTH) )
+            svg_rect(TEXT_WIDTH, top, (IMAGE_WIDTH - TEXT_WIDTH), BIN_HEIGHT, stroke, color);
+        else
+            svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, stroke, color);
         top += BIN_HEIGHT;
     }
 
