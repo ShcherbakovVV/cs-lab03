@@ -2,7 +2,6 @@
 
 void find_minmax( const vector<double>& numbers, double* mn, double* mx )
 {
-
     if( numbers.size() == 0 ) ;
     else
     {
