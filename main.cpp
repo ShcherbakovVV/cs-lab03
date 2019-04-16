@@ -93,7 +93,7 @@ int main()
         size_t bin_max;
         const auto bins = make_histogram( numbers, bin_count, &bin_max );
 
-        show_histogram_svg( bins );
+        show_histogram_svg( bins, bin_max );
     }
 
     getch();
